@@ -1,19 +1,21 @@
+import reader.ElevatorPropertiesReader;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Elevator  {
+public class Elevator {
     private List<Passenger> passengers;
     private int currentFloor;
     private final int MAX_CAPACITY;
 
     public Elevator() {
-        MAX_CAPACITY = 5;
+        ElevatorPropertiesReader elevatorPropertiesReader = new ElevatorPropertiesReader();
+        MAX_CAPACITY = elevatorPropertiesReader.getMAX_CAPACITY();
         passengers = new ArrayList<>(MAX_CAPACITY);
-        currentFloor = 1;
-
+        currentFloor = elevatorPropertiesReader.getSTART_FLOOR();
     }
 
-    public List <Passenger> getPassengers() {
+    public List<Passenger> getPassengers() {
         return passengers;
     }
 

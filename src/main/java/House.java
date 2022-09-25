@@ -1,15 +1,40 @@
+import reader.HousePropertiesReader;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class House {
-    private int floorsNumber;
-    Floor[] floors;
+    private final int MAX_COUNT_FLOOR;
+    private List<Floor> floors;
 
     public House() {
-        this.floorsNumber = (int) (Math.random() * 16)+5;
-        this.floors = new Floor[floorsNumber];
+        MAX_COUNT_FLOOR = generateMaxCountFloor();
+        floors = new ArrayList<>(MAX_COUNT_FLOOR);
+        initFloors();
     }
 
-    private void init (){
-        for (int i = 0; i < floors.length; i++) {
-                floors [i] = new Floor(i+1, floorsNumber);
+    private int generateMaxCountFloor() {
+        HousePropertiesReader housePropertiesReader = new HousePropertiesReader();
+        int minFloor = housePropertiesReader.getMIN_FLOOR_COUNT();
+        int maxFloor = housePropertiesReader.getMAX_FLOOR_COUNT();
+        return (int) (Math.random() * (maxFloor - minFloor + 1)) + minFloor;
+    }
+
+    private void initFloors() {
+        for (int i = 0; i < MAX_COUNT_FLOOR; i++) {
+            floors.add(new Floor(i + 1, MAX_COUNT_FLOOR));
         }
+    }
+
+    public Floor getFloorByIndex(int index) {
+        return floors.get(index - 1);
+    }
+
+    public int getMAX_COUNT_FLOOR() {
+        return MAX_COUNT_FLOOR;
+    }
+
+    public List<Floor> getFloors() {
+        return floors;
     }
 }
